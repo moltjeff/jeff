@@ -14,18 +14,21 @@ const clackHoisted = vi.hoisted(() => {
   let selectCalls = 0;
   const select = vi.fn(async ({ options, message }: any) => {
     selectCalls += 1;
-    // First: choose a section (pick first).
     if (String(message).includes("Choose a section")) {
+      // First time: choose first section, second time: review.
       if (selectCalls > 1) return "__review";
       return options[0].value;
     }
-    // Second: action selection etc.
     return options[0].value;
+  });
+  const multiselect = vi.fn(async ({ options }: any) => {
+    // pick all
+    return options.map((o: any) => o.value);
   });
   const text = vi.fn(async ({ initialValue }: any) => initialValue ?? "");
   const confirm = vi.fn(async () => true);
   const isCancel = vi.fn((v: any) => v === Symbol.for("clack:cancel"));
-  return { select, text, confirm, isCancel };
+  return { select, multiselect, text, confirm, isCancel };
 });
 
 vi.mock("@clack/prompts", async () => {
@@ -33,12 +36,16 @@ vi.mock("@clack/prompts", async () => {
     confirm: clackHoisted.confirm,
     isCancel: clackHoisted.isCancel,
     select: clackHoisted.select,
+    multiselect: clackHoisted.multiselect,
     text: clackHoisted.text,
   };
 });
 
 const hoisted = vi.hoisted(() => {
+  let calls = 0;
   const runEmbeddedPiAgent = vi.fn(async ({ prompt }: any) => {
+    calls += 1;
+
     if (String(prompt).includes("Generate a compact questionnaire")) {
       return {
         payloads: [
@@ -59,6 +66,29 @@ const hoisted = vi.hoisted(() => {
                   section: "Timeline",
                   prompt: "Deadline?",
                   kind: "text",
+                },
+              ],
+            }),
+          },
+        ],
+      };
+    }
+
+    // Extend prompt should return one multiselect question.
+    if (String(prompt).includes("propose any missing high-signal questions")) {
+      return {
+        payloads: [
+          {
+            text: JSON.stringify({
+              goal: "demo",
+              questions: [
+                {
+                  id: "transport",
+                  section: "Constraints",
+                  prompt: "Preferred transport?",
+                  kind: "multiselect",
+                  required: true,
+                  options: ["Car", "Plane"],
                 },
               ],
             }),
