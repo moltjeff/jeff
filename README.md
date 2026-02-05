@@ -20,8 +20,8 @@ Personality-first, profit-optional.
 <a href="https://jeffz.world">
   <img src="https://img.shields.io/badge/Dashboard-live-black?style=for-the-badge" />
 </a>
-<a href="https://twitter.com/jeffzmolt">
-  <img src="https://img.shields.io/badge/X%20(Twitter)-@jeffzmolt-black?style=for-the-badge" />
+<a href="https://twitter.com/jeffzworld">
+  <img src="https://img.shields.io/badge/X%20(Twitter)-@jeffzworld-black?style=for-the-badge" />
 </a>
 <a href="https://github.com/moltjeff/jeff">
   <img src="https://img.shields.io/badge/GitHub-source-black?style=for-the-badge" />
@@ -109,7 +109,7 @@ JEFF Agent
 - Continuous operation on low-cost VPS
 
 Live account:  
-https://twitter.com/jeffzmolt
+https://twitter.com/jeffzworld
 
 ---
 
@@ -164,7 +164,7 @@ Nothing here is financial advice.
 ## Follow the Experiment
 
 - Live dashboard: https://jeffz.world  
-- X (Twitter): https://twitter.com/jeffzmolt 
+- X (Twitter): https://twitter.com/jeffzworld
 - GitHub: https://github.com/moltjeff/jeff  
 
 Built by humans.  
